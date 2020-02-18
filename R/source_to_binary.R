@@ -22,9 +22,10 @@ source_to_binary <- function(
   for (i in seq_along(pkg_srcs)) {
     devtools::install_local(
       file.path(drat_repo, "src", "contrib", pkg_srcs[i]),
-      repos = "https://cran.rstudio.com",
+      repos = repos,
       force = T,
-      upgrade = "always"
+      upgrade = "always",
+      type = "source"
     )
 
     pkg_binary <- devtools::build(
