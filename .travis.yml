@@ -1,0 +1,25 @@
+language: r
+r_packages:
+- covr
+- drat
+- pkgdown
+- lintr
+- styler
+- devtools
+before_install:
+- bash travis/make.sh
+after_success:
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
+  travis/drat.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
+  travis/styler.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && Rscript
+  -e 'Sys.sleep(30);install.packages("org",repos="https://folkehelseinstituttet.github.io/drat/");pkgdown::build_site()'
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: "$GITHUB_PAT"
+  keep-history: true
+  local-dir: docs
+  on:
+    branch: master
