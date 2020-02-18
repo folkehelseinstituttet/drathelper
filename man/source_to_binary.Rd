@@ -4,12 +4,15 @@
 \alias{source_to_binary}
 \title{source_to_binary}
 \usage{
-source_to_binary(packages_to_build, drat_repo)
+source_to_binary(packages_to_build, drat_repo,
+  repos = c("https://cran.rstudio.com"))
 }
 \arguments{
 \item{packages_to_build}{a}
 
 \item{drat_repo}{a}
+
+\item{repos}{a}
 }
 \description{
 source_to_binary
