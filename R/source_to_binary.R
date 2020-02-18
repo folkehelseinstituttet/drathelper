@@ -4,10 +4,9 @@
 #' @param repos a
 #' @export
 source_to_binary <- function(
-  packages_to_build,
-  drat_repo,
-  repos = c("https://cran.rstudio.com")
-  ) {
+                             packages_to_build,
+                             drat_repo,
+                             repos = c("https://cran.rstudio.com")) {
   drat::pruneRepo(drat_repo, type = "source", remove = TRUE)
   drat::pruneRepo(drat_repo, type = "win.binary", remove = TRUE)
 
