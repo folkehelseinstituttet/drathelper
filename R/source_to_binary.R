@@ -8,7 +8,7 @@ source_to_binary <- function(
                              drat_repo,
                              repos = c("https://cran.rstudio.com")) {
   drat::pruneRepo(drat_repo, type = "source", remove = TRUE)
-  try(drat::pruneRepo(drat_repo, type = "win.binary", remove = TRUE),TRUE)
+  try(drat::pruneRepo(drat_repo, type = "win.binary", remove = TRUE), TRUE)
 
   pkg_srcs <- list.files(file.path(drat_repo, "src", "contrib"))
   keep <- c()
