@@ -48,7 +48,7 @@ get_package_table <- function(drat_repo, win_version) {
     )
 
     retval <- data.frame(
-      Package = glue::glue("<a href='{desc_src$Package}.html'>{desc_src$Package}</a>"),
+      Package = glue::glue("<a href='packages/{desc_src$Package}.html'>{desc_src$Package}</a>"),
       Source = desc_src$Version,
       Windows = NA,
       CRAN = glue::glue(""),
@@ -96,7 +96,7 @@ create_website_index <- function(drat_repo, win_version, output_dir = drat_repo)
 }
 
 refer_to_other_packages <- function(val, pkgs_src) {
-  if (!is.na(val)) {
+  if (!is.na(val) & !is.null(val)) {
     val <- stringr::str_replace_all(val, "\\n", " ")
     val <- stringr::str_split(val, ", ")[[1]]
     val[val %in% pkgs_src$Package] <- paste0(
@@ -108,6 +108,7 @@ refer_to_other_packages <- function(val, pkgs_src) {
     )
     val <- paste0(val, collapse = ", ")
   }
+  if(is.null(val)) val <- ""
   return(val)
 }
 
