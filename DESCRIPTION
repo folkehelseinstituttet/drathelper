@@ -10,16 +10,16 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: drat,
-  devtools,
+  devtools
+Suggests: testthat,
+  knitr,
+  rmarkdown,
   data.table,
   glue,
   httr,
   huxtable,
   miniCRAN,
   stringr
-Suggests: testthat,
-    knitr,
-    rmarkdown
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://euromomonetwork.github.io/drat/

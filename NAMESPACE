@@ -3,4 +3,5 @@
 export(create_website_index)
 export(create_website_packages)
 export(get_package_table)
+export(get_suggests)
 export(source_to_binary)
