@@ -21,7 +21,7 @@ desc_cran <- params$desc_cran
 cat(desc_src$Description)
 ```
 
-```{r, results='asis'}
+```{r warning=FALSE, results='asis'}
 ht <- huxtable::hux(tab, add_colnames = F)
 #ht <- huxtable::theme_article(ht)
 huxtable::wrap(ht)[,2] <- TRUE

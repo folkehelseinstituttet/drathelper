@@ -51,7 +51,7 @@ get_package_table <- function(drat_repo, win_version) {
       Package = desc_src$Package,
       Source = desc_src$Version,
       Windows = NA,
-      CRAN = glue::glue(NA),
+      CRAN = glue::glue(""),
       Title = desc_src$Title
     )
 
@@ -189,7 +189,8 @@ create_website_packages <- function(drat_repo, win_version, pkgdown_base_url) {
       params = list(
         desc_src = desc_src,
         tab = tab
-      )
+      ),
+      envir = new.env()
     )
   }
 }
