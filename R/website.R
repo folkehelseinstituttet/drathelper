@@ -102,13 +102,19 @@ refer_to_other_packages <- function(val, pkgs_src) {
   if (!is.na(val)) {
     val <- stringr::str_replace_all(val, "\\n", " ")
     val <- stringr::str_split(val, ", ")[[1]]
-    val[val %in% pkgs_src$Package] <- paste0(
+
+    val_first <- stringr::str_split(val, " ")
+    val_first <- lapply(val_first,function(x) x[1])
+    val_first <- unlist(val_first)
+
+    val[val_first %in% pkgs_src$Package] <- paste0(
       "<a href='",
-      val[val %in% pkgs_src$Package],
+      val_first[val_first %in% pkgs_src$Package],
       ".html'>",
-      val[val %in% pkgs_src$Package],
+      val[val_first %in% pkgs_src$Package],
       "</a>"
     )
+
     val <- paste0(val, collapse = ", ")
   }
   return(val)
@@ -121,6 +127,7 @@ refer_to_other_packages <- function(val, pkgs_src) {
 #' @param pkgdown_base_url a
 #' @export
 create_website_packages <- function(drat_repo, win_version, output_dir = file.path(drat_repo, "packages"), pkgdown_base_url) {
+  unlink(output_dir)
   dir.create(output_dir, showWarnings = F)
 
   pkgs_src <- data.table::data.table(read.dcf(file.path(drat_repo, "src", "contrib", "PACKAGES")))
@@ -160,11 +167,11 @@ create_website_packages <- function(drat_repo, win_version, output_dir = file.pa
     vers_cran <- NA
     if (pkg %in% pkgs_cran$Package) {
       desc_cran <- pkgs_cran[pkgs_cran$Package == pkg, ]
-      vers_cran <- desc_cran$Version
+      vers_cran <- glue::glue("<a href='https://cran.r-project.org/web/packages/{pkg}/index.html'>{desc_cran$Version}</a>")
     }
 
     pkgdown_url <- file.path(pkgdown_base_url, pkg)
-    pkgdown_url <- gsub("//", "/", pkgdown_url)
+    pkgdown_url <- gsub("//$", "/", pkgdown_url)
     if (!httr::http_error(pkgdown_url, followlocation = 0L)) {
       doc <- data.frame("Documentation", pkgdown_url)
     } else {
@@ -173,13 +180,13 @@ create_website_packages <- function(drat_repo, win_version, output_dir = file.pa
 
     tab <- data.table::rbindlist(list(
       doc,
-      data.frame("Version (source)", desc_src$Version),
+      data.frame("Version (source)", gsub("\n"," ",desc_src$Version)),
       data.frame("Version (windows)", vers_win),
       data.frame("Version (CRAN)", vers_cran),
       data.frame("Depends", desc_src$Depends),
       data.frame("Imports", desc_src$Imports),
       data.frame("Suggests", desc_src$Suggests),
-      data.frame("Author", desc_src$Author),
+      data.frame("Author", iconv(desc_src$Author,from="UTF-8",to="latin1")),
       data.frame("Maintainer", desc_src$Maintainer),
       data.frame("License", desc_src$License),
       data.frame("Needs complication", desc_src$NeedsCompilation)

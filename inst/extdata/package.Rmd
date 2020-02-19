@@ -18,7 +18,7 @@ desc_cran <- params$desc_cran
 <br>
 
 ```{r, results='asis'}
-cat(desc_src$Description)
+cat(gsub("\n"," ",desc_src$Description))
 ```
 
 ```{r warning=FALSE, results='asis'}
