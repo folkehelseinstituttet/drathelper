@@ -4,7 +4,7 @@
 \alias{create_website_index}
 \title{create_website_index}
 \usage{
-create_website_index(drat_repo, win_version, output_dir)
+create_website_index(drat_repo, win_version, output_dir = drat_repo)
 }
 \arguments{
 \item{drat_repo}{a}

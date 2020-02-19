@@ -48,7 +48,7 @@ get_package_table <- function(drat_repo, win_version) {
     )
 
     retval <- data.frame(
-      Package = desc_src$Package,
+      Package = glue::glue("<a href='{desc_src$Package}.html'>{desc_src$Package}</a>"),
       Source = desc_src$Version,
       Windows = NA,
       CRAN = glue::glue(""),
@@ -75,7 +75,7 @@ get_package_table <- function(drat_repo, win_version) {
 
   ht <- huxtable::hux(res, add_colnames = T)
   ht <- huxtable::theme_article(ht)
-  huxtable::escape_contents(ht)[, 4] <- FALSE
+  huxtable::escape_contents(ht)[, c(1,4)] <- FALSE
   ht
 }
 
@@ -84,7 +84,7 @@ get_package_table <- function(drat_repo, win_version) {
 #' @param win_version a
 #' @param output_dir a
 #' @export
-create_website_index <- function(drat_repo, win_version, output_dir) {
+create_website_index <- function(drat_repo, win_version, output_dir=drat_repo) {
   rmarkdown::render(
     system.file("extdata", "index.Rmd", package = "drathelper"),
     output_dir = output_dir,
@@ -114,10 +114,11 @@ refer_to_other_packages <- function(val, pkgs_src) {
 #' create_website_packages
 #' @param drat_repo a
 #' @param win_version a
+#' @param output_dir a
 #' @param pkgdown_base_url a
 #' @export
-create_website_packages <- function(drat_repo, win_version, pkgdown_base_url) {
-  dir.create(file.path(drat_repo, "packages"), showWarnings = F)
+create_website_packages <- function(drat_repo, win_version, output_dir=file.path(drat_repo, "packages"), pkgdown_base_url) {
+  dir.create(output_dir, showWarnings = F)
 
   pkgs_src <- data.table::data.table(read.dcf(file.path(drat_repo, "src", "contrib", "PACKAGES")))
   pkgs_win <- data.table::data.table(read.dcf(file.path(drat_repo, "bin", "windows", "contrib", win_version, "PACKAGES")))
@@ -164,7 +165,7 @@ create_website_packages <- function(drat_repo, win_version, pkgdown_base_url) {
     if (!httr::http_error(pkgdown_url, followlocation = 0L)) {
       doc <- data.frame("Documentation", pkgdown_url)
     } else {
-      doc <- NULL
+      doc <- data.frame("Documentation", NA)
     }
 
     tab <- data.table::rbindlist(list(
@@ -181,10 +182,9 @@ create_website_packages <- function(drat_repo, win_version, pkgdown_base_url) {
       data.frame("Needs complication", desc_src$NeedsCompilation)
     ), use.names = F)
 
-
     rmarkdown::render(
       system.file("extdata", "package.Rmd", package = "drathelper"),
-      output_dir = file.path(drat_repo, "packages"),
+      output_dir = output_dir,
       output_file = paste0(desc_src$Package, ".html"),
       params = list(
         desc_src = desc_src,

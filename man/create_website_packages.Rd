@@ -4,12 +4,15 @@
 \alias{create_website_packages}
 \title{create_website_packages}
 \usage{
-create_website_packages(drat_repo, win_version, pkgdown_base_url)
+create_website_packages(drat_repo, win_version,
+  output_dir = file.path(drat_repo, "packages"), pkgdown_base_url)
 }
 \arguments{
 \item{drat_repo}{a}
 
 \item{win_version}{a}
+
+\item{output_dir}{a}
 
 \item{pkgdown_base_url}{a}
 }
