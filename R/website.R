@@ -104,7 +104,7 @@ refer_to_other_packages <- function(val, pkgs_src) {
     val <- stringr::str_split(val, ", ")[[1]]
 
     val_first <- stringr::str_split(val, " ")
-    val_first <- lapply(val_first,function(x) x[1])
+    val_first <- lapply(val_first, function(x) x[1])
     val_first <- unlist(val_first)
 
     val[val_first %in% pkgs_src$Package] <- paste0(
@@ -180,13 +180,13 @@ create_website_packages <- function(drat_repo, win_version, output_dir = file.pa
 
     tab <- data.table::rbindlist(list(
       doc,
-      data.frame("Version (source)", gsub("\n"," ",desc_src$Version)),
+      data.frame("Version (source)", gsub("\n", " ", desc_src$Version)),
       data.frame("Version (windows)", vers_win),
       data.frame("Version (CRAN)", vers_cran),
       data.frame("Depends", desc_src$Depends),
       data.frame("Imports", desc_src$Imports),
       data.frame("Suggests", desc_src$Suggests),
-      data.frame("Author", iconv(desc_src$Author,from="UTF-8",to="latin1")),
+      data.frame("Author", iconv(desc_src$Author, from = "UTF-8", to = "latin1")),
       data.frame("Maintainer", desc_src$Maintainer),
       data.frame("License", desc_src$License),
       data.frame("Needs complication", desc_src$NeedsCompilation)
