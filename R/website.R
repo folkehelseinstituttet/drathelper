@@ -96,7 +96,8 @@ create_website_index <- function(drat_repo, win_version, output_dir = drat_repo)
 }
 
 refer_to_other_packages <- function(val, pkgs_src) {
-  if (!is.na(val) & !is.null(val)) {
+  if(is.null(val)) return("")
+  if (!is.na(val)) {
     val <- stringr::str_replace_all(val, "\\n", " ")
     val <- stringr::str_split(val, ", ")[[1]]
     val[val %in% pkgs_src$Package] <- paste0(
@@ -108,7 +109,7 @@ refer_to_other_packages <- function(val, pkgs_src) {
     )
     val <- paste0(val, collapse = ", ")
   }
-  if(is.null(val)) val <- ""
+
   return(val)
 }
 
