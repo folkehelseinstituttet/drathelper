@@ -1,0 +1,32 @@
+---
+title: "`r params$desc_src$Package`: `r params$desc_src$Title`"
+output: html_document
+params:
+  desc_src: NULL
+  tab: NULL
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+desc_src <- params$desc_src
+desc_win <- params$desc_win
+desc_cran <- params$desc_cran
+```
+
+<br>
+
+```{r, results='asis'}
+cat(desc_src$Description)
+```
+
+```{r, results='asis'}
+ht <- huxtable::hux(tab, add_colnames = F)
+#ht <- huxtable::theme_article(ht)
+huxtable::wrap(ht)[,2] <- TRUE
+huxtable::escape_contents(ht)[,2] <- FALSE
+huxtable::width(ht) <- 1
+huxtable::print_html(ht)
+```
+

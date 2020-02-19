@@ -1,10 +1,10 @@
 Package: drathelper
-Title: Graphs For 'ggplot2' In The Style Of FHI 
+Title: Helper functions for drat
 Version: 2020.2.18
 Authors@R: c(
   person("Richard", "White", email = "w@rwhite.no", role = c("aut", "cre"))
   )
-Description: A system to help you organize projects. Most analyses have three (or more) main sections: code, results, and data, each with different requirements (version control/sharing/encryption). You provide folder locations and 'org' helps you take care of the details.
+Description: Helps keep the FHI drat repository running properly.
 Depends: R (>= 3.3.0)
 License: GPL-3
 Encoding: UTF-8
@@ -14,10 +14,12 @@ Imports: drat,
 Suggests: testthat,
     knitr,
     rmarkdown,
-    fhidata,
-    lubridate,
-    lemon,
-    fhi
+    data.table,
+    glue,
+    httr,
+    huxtable,
+    miniCRAN,
+    stringr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://raubreywhite.github.io/drat/, https://euromomonetwork.github.io/drat/
+Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://euromomonetwork.github.io/drat/
