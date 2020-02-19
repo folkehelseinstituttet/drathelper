@@ -75,7 +75,7 @@ get_package_table <- function(drat_repo, win_version) {
 
   ht <- huxtable::hux(res, add_colnames = T)
   ht <- huxtable::theme_article(ht)
-  huxtable::escape_contents(ht)[, c(1,4)] <- FALSE
+  huxtable::escape_contents(ht)[, c(1, 4)] <- FALSE
   ht
 }
 
@@ -84,7 +84,7 @@ get_package_table <- function(drat_repo, win_version) {
 #' @param win_version a
 #' @param output_dir a
 #' @export
-create_website_index <- function(drat_repo, win_version, output_dir=drat_repo) {
+create_website_index <- function(drat_repo, win_version, output_dir = drat_repo) {
   rmarkdown::render(
     system.file("extdata", "index.Rmd", package = "drathelper"),
     output_dir = output_dir,
@@ -117,7 +117,7 @@ refer_to_other_packages <- function(val, pkgs_src) {
 #' @param output_dir a
 #' @param pkgdown_base_url a
 #' @export
-create_website_packages <- function(drat_repo, win_version, output_dir=file.path(drat_repo, "packages"), pkgdown_base_url) {
+create_website_packages <- function(drat_repo, win_version, output_dir = file.path(drat_repo, "packages"), pkgdown_base_url) {
   dir.create(output_dir, showWarnings = F)
 
   pkgs_src <- data.table::data.table(read.dcf(file.path(drat_repo, "src", "contrib", "PACKAGES")))
