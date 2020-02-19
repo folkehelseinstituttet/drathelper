@@ -109,7 +109,6 @@ refer_to_other_packages <- function(val, pkgs_src) {
     )
     val <- paste0(val, collapse = ", ")
   }
-
   return(val)
 }
 
