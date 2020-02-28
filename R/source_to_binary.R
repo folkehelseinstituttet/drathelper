@@ -29,11 +29,11 @@ source_to_binary <- function(
 
     pkg_binary <- devtools::build(
       pkg = file.path(drat_repo, "src", "contrib", pkg_srcs[i]),
-      path = tempdir(),
       binary = T
     )
 
     drat::insertPackage(pkg_binary, repodir = drat_repo)
+    unlink(pkg_binary)
   }
   drat::pruneRepo(drat_repo, type = "win.binary", remove = TRUE)
 }
