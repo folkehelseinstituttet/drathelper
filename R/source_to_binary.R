@@ -23,7 +23,7 @@ source_to_binary <- function(
       file.path(drat_repo, "src", "contrib", pkg_srcs[i]),
       repos = repos,
       force = T,
-      upgrade = "always",
+      upgrade = "never",
       type = "source"
     )
 
