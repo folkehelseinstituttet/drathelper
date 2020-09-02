@@ -22,4 +22,4 @@ Suggests: testthat,
   stringr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://euromomonetwork.github.io/drat/
+Additional_repositories: https://folkehelseinstituttet.github.io/drat/
